@@ -140,7 +140,7 @@ def disable_inetd_services():
         'chargen-dgram', 'chargen-stream', 'daytime-dgram', 'daytime-stream',
         'discard-dgram', 'discard-stream', 'echo-dgram', 'echo-stream',
         'time-dgram', 'time-stream', 'rexec', 'rlogin', 'rsh', 'talk',
-        'telnet', 'tftp', 'rsync', 'xinetd'
+        'tftp', 'rsync', 'xinetd'
     ]
 
     for srv in services:
@@ -204,8 +204,8 @@ def disable_special_services():
     """2.2.3 - 2.2.14, 2.2.16"""
     services = [
         'avahi-daemon', 'cups',
-        'dhcpd', 'slapd', 'nfs', 'rpcbind', 'named', 'vsftpd',
-        'httpd', 'dovecot', 'smb', 'squid', 'snmpd', 'ypserv'
+        'dhcpd', 'slapd', 'named', 'vsftpd',
+        'dovecot', 'squid', 'snmpd', 'ypserv'
     ]
 
     for srv in services:
@@ -227,7 +227,7 @@ def remove_insecure_clients():
     """2.3 Service Clients"""
     packages = [
         'ypbind', 'rsh', 'talk',
-        'telnet', 'openldap-clients'
+        'openldap-clients'
     ]
 
     for package in packages:
@@ -317,7 +317,6 @@ def disable_uncommon_protocols():
 def configure_iptables():
     """3.6 Firewall Configuration"""
     Package('iptables').install()
-
     exec_shell([
         'iptables -F',
         'iptables -P INPUT DROP',
@@ -409,12 +408,12 @@ def configure_sshd():
         'Protocol': '2',
         'LogLevel': 'INFO',
         'X11Forwarding': 'no',
-        'MaxAuthTries': '4',
-        'IgnoreRhosts': 'yes',
-        'HostbasedAuthentication': 'no',
-        'PermitRootLogin': 'no',
+#       'MaxAuthTries': '4',
+#       'IgnoreRhosts': 'yes',
+#        'HostbasedAuthentication': 'no',
+#        'PermitRootLogin': 'no',
         'PermitEmptyPasswords': 'no',
-        'PermitUserEnvironment': 'no',
+#        'PermitUserEnvironment': 'no',
         'Ciphers': 'aes256-ctr,aes192-ctr,aes128-ctr',
         'MACs': 'hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com',
         'ClientAliveInterval': '300',
@@ -503,8 +502,8 @@ def configure_umask():
 
 def configure_su():
     """5.5 Ensure access to the su command is restricted"""
-    File('/etc/pam.d/su').write(get_string_asset('/etc/pam.d/su'))
-    exec_shell('usermod -aG wheel root')
+#    File('/etc/pam.d/su').write(get_string_asset('/etc/pam.d/su'))
+#    exec_shell('usermod -aG wheel root')
 
 
 def main():
